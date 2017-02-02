@@ -67,12 +67,12 @@ And with clang/clang++:
 # cvector
 real	0m1.014s
 user	0m0.812s
-sys	0m0.200s
+sys	  0m0.200s
 
 # std::vector
 real	0m0.910s
 user	0m0.468s
-sys	0m0.440s
+sys 	0m0.440s
 ```
 
 
