@@ -39,6 +39,44 @@ Output:
 ```
 
 
+
+## Performance
+
+The vector is meant to be grown via pushbacks.  The initial size is 8 elements, and thereafter, the storage is enlarged by a growth factor of 1.5.
+
+To test the run time performance, we use two simple examples provided in the `bench/` subtree of the project source.  Each is tested with 1e8 elements.
+
+The run time performance is comparable to its `std::vector` counterpart.  With gcc/g++:
+
+```
+# cvector
+real	0m0.335s
+user	0m0.164s
+sys	0m0.168s
+
+# std::vector
+real	0m0.813s
+user	0m0.400s
+sys	0m0.412s
+```
+
+
+And with clang/clang++:
+
+```
+# cvector
+real	0m1.014s
+user	0m0.812s
+sys	0m0.200s
+
+# std::vector
+real	0m0.910s
+user	0m0.468s
+sys	0m0.440s
+```
+
+
+
 ## License
 
 This project is licensed under the "0-clause" BSD.  Basically I don't care how or why you use it, but it comes with no warranty of any kind.
