@@ -50,14 +50,14 @@ The run time performance is comparable to its `std::vector` counterpart.  With g
 
 ```
 # cvector
-real	0m0.335s
-user	0m0.164s
-sys 	0m0.168s
+real  0m0.335s
+user  0m0.164s
+sys   0m0.168s
 
 # std::vector
-real	0m0.813s
-user	0m0.400s
-sys	  0m0.412s
+real  0m0.813s
+user  0m0.400s
+sys   0m0.412s
 ```
 
 
@@ -65,14 +65,14 @@ And with clang/clang++:
 
 ```
 # cvector
-real	0m1.014s
-user	0m0.812s
-sys	  0m0.200s
+real  0m1.014s
+user  0m0.812s
+sys   0m0.200s
 
 # std::vector
-real	0m0.910s
-user	0m0.468s
-sys 	0m0.440s
+real  0m0.910s
+user  0m0.468s
+sys   0m0.440s
 ```
 
 
