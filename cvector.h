@@ -33,19 +33,22 @@
 #define VECTOR_OOM      -1
 #define VECTOR_BADINDEX -2
 
+// Change as appropriate
+typedef double VecData_t;
+
 typedef struct Vector
 {
   int capacity;
   int size;
-  double *data;
+  VecData_t *data;
 } Vector_t;
 
 
 
 static inline int __vec_expand_capacity(Vector_t *const x, const int newcapacity);
 static inline Vector_t* vec_create();
-static inline int vec_pushback(Vector_t *const x, const double value);
-static inline int vec_set(Vector_t *x, const int index, const double value);
+static inline int vec_pushback(Vector_t *const x, const VecData_t value);
+static inline int vec_set(Vector_t *x, const int index, const VecData_t value);
 static inline void vec_free(Vector_t *x);
 static inline int vec_resize(Vector_t *x, const int newsize);
 static inline void vec_print(Vector_t *x);
@@ -76,7 +79,7 @@ static inline Vector_t* vec_create()
   return x;
 }
 
-static inline int vec_pushback(Vector_t *const x, const double value)
+static inline int vec_pushback(Vector_t *const x, const VecData_t value)
 {
   if (VEC_SIZE(x) == VEC_CAPACITY(x))
   {
@@ -93,7 +96,7 @@ static inline int vec_pushback(Vector_t *const x, const double value)
   return VECTOR_OK;
 }
 
-static inline int vec_set(Vector_t *x, const int index, const double value)
+static inline int vec_set(Vector_t *x, const int index, const VecData_t value)
 {
   if (index > 0 && index < VEC_SIZE(x))
   {
