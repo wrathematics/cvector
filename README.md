@@ -1,6 +1,6 @@
 # cvector
 
-A dynamic vector written in C99.  The implementation is header-only, so the "methods" should inline with any decent compiler.  There is still various size-checking overhead, but the performance should be fairly similar to C++ `vector<double>`.
+A dynamic vector written in C99.  The implementation is header-only, so the "methods" should inline with any decent compiler.  There is still various size-checking overhead, but the performance should be fairly similar to C++ `std::vector<double>`.
 
 Yes I actually needed this for something.
 
