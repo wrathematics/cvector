@@ -52,12 +52,12 @@ The run time performance is comparable to its `std::vector` counterpart.  With g
 # cvector
 real	0m0.335s
 user	0m0.164s
-sys	0m0.168s
+sys 	0m0.168s
 
 # std::vector
 real	0m0.813s
 user	0m0.400s
-sys	0m0.412s
+sys	  0m0.412s
 ```
 
 
