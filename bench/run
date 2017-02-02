@@ -1,0 +1,8 @@
+#!/bin/sh
+
+TOP=1e8
+
+make clean
+make
+time ./cbench "${TOP}"
+time ./cxxbench "${TOP}"
