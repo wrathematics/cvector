@@ -25,9 +25,9 @@
 #define __VECTOR_INITIAL_SIZE 8
 #define __VECTOR_GROWTH_FACTOR 1.5
 
-#define VEC_CAPACITY(x) (x->capacity)
-#define VEC_SIZE(x) (x->size)
-#define VEC_DATA(x) (x->data)
+#define VEC_CAPACITY(x) ((x)->capacity)
+#define VEC_SIZE(x) ((x)->size)
+#define VEC_DATA(x) ((x)->data)
 
 #define VECTOR_OK       0
 #define VECTOR_OOM      -1
@@ -50,21 +50,11 @@ static inline void vec_free(Vector_t *x);
 static inline int vec_resize(Vector_t *x, const int newsize);
 static inline void vec_print(Vector_t *x);
 
-static inline Vector_t* vec_create()
-{
-  Vector_t *x = malloc(sizeof(*x));
-  
-  VEC_SIZE(x) = 1;
-  __vec_expand_capacity(x, __VECTOR_INITIAL_SIZE);
-  
-  return x;
-}
 
 static inline int __vec_expand_capacity(Vector_t *const x, const int newcapacity)
 {
   void *realloc_ptr;
-  // int newcapacity = VEC_CAPACITY(x) * __VECTOR_GROWTH_FACTOR;
-  realloc_ptr = realloc(x->data, newcapacity * sizeof(*(x->data)));
+  realloc_ptr = realloc(VEC_DATA(x), newcapacity * sizeof(*(VEC_DATA(x))));
   if (realloc_ptr == NULL)
   {
     vec_free(x);
@@ -74,6 +64,16 @@ static inline int __vec_expand_capacity(Vector_t *const x, const int newcapacity
   VEC_DATA(x) = realloc_ptr;
   VEC_CAPACITY(x) = newcapacity;
   return VECTOR_OK;
+}
+
+static inline Vector_t* vec_create()
+{
+  Vector_t *x = malloc(sizeof(*x));
+  
+  VEC_SIZE(x) = 0;
+  __vec_expand_capacity(x, __VECTOR_INITIAL_SIZE);
+  
+  return x;
 }
 
 static inline int vec_pushback(Vector_t *const x, const double value)
@@ -86,7 +86,8 @@ static inline int vec_pushback(Vector_t *const x, const double value)
       return check;
   }
   
-  VEC_DATA(x)[VEC_SIZE(x) - 1] = value;
+  const int ind = VEC_SIZE(x);
+  VEC_DATA(x)[ind] = value;
   VEC_SIZE(x)++;
   
   return VECTOR_OK;
@@ -94,7 +95,7 @@ static inline int vec_pushback(Vector_t *const x, const double value)
 
 static inline int vec_set(Vector_t *x, const int index, const double value)
 {
-  if (index < VEC_SIZE(x) - 1)
+  if (index > 0 && index < VEC_SIZE(x))
   {
     VEC_DATA(x)[index] = value;
     return VECTOR_OK;
@@ -131,10 +132,10 @@ static inline void vec_print(Vector_t *x)
   if (VEC_SIZE(x) == 0)
     return;
   
-  for (int i=0; i<VEC_SIZE(x)-1; i+=n_per_line)
+  for (int i=0; i<VEC_SIZE(x); i+=n_per_line)
   {
     printf("  ");
-    for (int j=0; j<n_per_line && i+j<VEC_SIZE(x)-1; j++)
+    for (int j=0; j<n_per_line && i+j<VEC_SIZE(x); j++)
       printf("%8.3f ", VEC_DATA(x)[i+j]);
     
     printf("\n");
