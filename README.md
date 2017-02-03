@@ -1,8 +1,16 @@
 # cvector
 
-A dynamic vector written in C99.  The implementation is header-only, so the "methods" should inline with any decent compiler.  There is still various size-checking overhead, but the performance should be fairly similar to C++ `std::vector<double>`.
+A dynamic vector written in C99.  The implementation is header-only, so the "methods" should inline with any decent compiler.  There is still various size-checking overhead, but the performance should be fairly similar to C++ `std::vector`.
 
 Yes I actually needed this for something.
+
+
+
+## Installation
+
+Just copy `cvector.h` over to wherever and include it via `#include "cvector.h"`.  The license is extremely permissive (see License section below).
+
+The default storage type is `double`.  Change the definition of `VecData_t` in the header as appropriate for your needs.  For printing, change the macros `VECTOR_PRINT_FORMAT` and `VECTOR_N_PER_LINE` as well.
 
 
 
@@ -37,6 +45,38 @@ Output:
      7.000    8.000    9.000   10.000   11.000   12.000   13.000 
     14.000   15.000 
 ```
+
+
+
+## API
+
+The "public" API is:
+
+```c
+Vector_t* vec_create();
+int vec_pushback(Vector_t *const x, const VecData_t value);
+int vec_set(Vector_t *x, const int index, const VecData_t value);
+void vec_free(Vector_t *x);
+int vec_resize(Vector_t *x, const int newsize);
+void vec_print(Vector_t *x);
+```
+
+The "getters" are:
+
+```c
+VEC_SIZE(x)
+VEC_DATA(x)
+```
+
+Return values are:
+
+```c
+VECTOR_OK       //  0
+VECTOR_OOM      // -1
+VECTOR_BADINDEX // -2
+```
+
+See the examples and benchmarks for example usage.
 
 
 
@@ -80,3 +120,5 @@ sys   0m0.440s
 ## License
 
 This project is licensed under the "0-clause" BSD.  Basically I don't care how or why you use it, but it comes with no warranty of any kind.
+
+A longer explanation is that it is subject to the usual restrictions of the 2-Clause BSD license, except that you do not have to retain copyright notices on source or binary copies.  Note that this should not be construed as a dereliction of copyright or "public domaining".  It's just meant to be extremely permissive.
