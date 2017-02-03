@@ -35,6 +35,9 @@
 
 // Change as appropriate
 typedef double VecData_t;
+#define VECTOR_PRINT_FORMAT "%8.3f "
+#define VECTOR_N_PER_LINE 7
+
 
 typedef struct Vector
 {
@@ -130,16 +133,14 @@ static inline int vec_resize(Vector_t *x, const int newsize)
 
 static inline void vec_print(Vector_t *x)
 {
-  const int n_per_line = 7;
-  
   if (VEC_SIZE(x) == 0)
     return;
   
-  for (int i=0; i<VEC_SIZE(x); i+=n_per_line)
+  for (int i=0; i<VEC_SIZE(x); i+=VECTOR_N_PER_LINE)
   {
     printf("  ");
-    for (int j=0; j<n_per_line && i+j<VEC_SIZE(x); j++)
-      printf("%8.3f ", VEC_DATA(x)[i+j]);
+    for (int j=0; j<VECTOR_N_PER_LINE && i+j<VEC_SIZE(x); j++)
+      printf(VECTOR_PRINT_FORMAT, VEC_DATA(x)[i+j]);
     
     printf("\n");
   }
